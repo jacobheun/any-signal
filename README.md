@@ -30,6 +30,8 @@ await performSomeAction({ signal: combinedSignal })
 clearTimeout(timeoutId)
 ```
 
+## API
+
 ### `anySignal(signals)`
 
 #### Parameters
@@ -45,9 +47,6 @@ clearTimeout(timeoutId)
 | [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) | A Signal that will be aborted as soon as any one of its parent signals are aborted. |
 
 The returned [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) will only be aborted once, and as soon as one of its parent signals is aborted.
-
-## API
-
 
 ## Acknowledgements
 

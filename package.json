@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Combines an array of AbortSignals into a single signal that is aborted when any signal is",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "test": "npm run lint && nyc --reporter=lcov --reporter=text ava --verbose",
     "lint": "standard"

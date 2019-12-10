@@ -22,6 +22,27 @@ test('should abort from any signal', async t => {
   t.is(signal.aborted, true)
 })
 
+test('ignores non signals', async t => {
+  const controllers = [...new Array(5)].map(() => new AbortController())
+  const signals = controllers.map(c => c.signal)
+  signals.push(undefined)
+  const signal = anySignal(signals)
+  t.is(signal.aborted, false)
+  const deferred = pDefer()
+  let abortCount = 0
+  signal.addEventListener('abort', () => {
+    abortCount++
+    deferred.resolve()
+  })
+
+  const randomController = controllers[Math.floor(Math.random() * controllers.length)]
+  randomController.abort()
+
+  await deferred.promise
+  t.is(abortCount, 1)
+  t.is(signal.aborted, true)
+})
+
 test('should only abort once', async t => {
   const controllers = [...new Array(5)].map(() => new AbortController())
   const signal = anySignal(controllers.map(c => c.signal))

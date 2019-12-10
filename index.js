@@ -13,11 +13,13 @@ function anySignal (signals) {
     controller.abort()
 
     for (const signal of signals) {
+      if (!signal || !signal.removeEventListener) continue
       signal.removeEventListener('abort', onAbort)
     }
   }
 
   for (const signal of signals) {
+    if (!signal || !signal.addEventListener) continue
     if (signal.aborted) {
       onAbort()
       break

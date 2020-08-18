@@ -4,7 +4,9 @@
   "description": "Combines an array of AbortSignals into a single signal that is aborted when any signal is",
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "abort-controller.js",
+    "abort-controller.browser.js"
   ],
   "scripts": {
     "test": "npm run lint && nyc --reporter=lcov --reporter=text ava --verbose",
@@ -13,6 +15,9 @@
   "keywords": [],
   "author": "Jacob Heun",
   "license": "MIT",
+  "browser": {
+    "./abort-controller.js": "./abort-controller.browser.js"
+  },
   "dependencies": {
     "abort-controller": "^3.0.0"
   },

@@ -22,15 +22,10 @@
     "abort-controller": "^3.0.0"
   },
   "devDependencies": {
-    "ava": "^2.4.0",
-    "nyc": "^14.1.1",
+    "ava": "^3.11.1",
+    "nyc": "^15.1.0",
     "p-defer": "^3.0.0",
     "standard": "^14.3.1"
-  },
-  "ava": {
-    "babel": false,
-    "compileEnhancements": false,
-    "failWithoutAssertions": false
   },
   "repository": {
     "type": "git",

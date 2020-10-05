@@ -3,6 +3,7 @@
   "version": "1.2.0",
   "description": "Combines an array of AbortSignals into a single signal that is aborted when any signal is",
   "main": "index.js",
+  "types": "index.d.ts",
   "files": [
     "index.js",
     "abort-controller.js",

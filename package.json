@@ -6,6 +6,7 @@
   "types": "index.d.ts",
   "files": [
     "index.js",
+    "index.d.ts",
     "abort-controller.js",
     "abort-controller.browser.js"
   ],

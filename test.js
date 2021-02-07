@@ -1,5 +1,5 @@
 const test = require('ava')
-const AbortController = require('native-abort-controller')
+const { AbortController } = require('native-abort-controller')
 const pDefer = require('p-defer')
 const anySignal = require('./')
 

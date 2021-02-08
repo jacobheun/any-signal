@@ -1,6 +1,6 @@
 {
   "name": "any-signal",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Combines an array of AbortSignals into a single signal that is aborted when any signal is",
   "main": "index.js",
   "types": "index.d.ts",

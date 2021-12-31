@@ -13,7 +13,6 @@ npm install any-signal
 ## Usage
 
 ```js
-const AbortController = require('abort-controller')
 const anySignal = require('any-signal')
 
 const userController = new AbortController()

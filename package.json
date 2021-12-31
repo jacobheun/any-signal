@@ -17,10 +17,6 @@
   "keywords": [],
   "author": "Jacob Heun",
   "license": "MIT",
-  "dependencies": {
-    "abort-controller": "^3.0.0",
-    "native-abort-controller": "^1.0.3"
-  },
   "devDependencies": {
     "ava": "^3.11.1",
     "nyc": "^15.1.0",

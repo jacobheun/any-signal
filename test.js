@@ -1,7 +1,7 @@
 const test = require('ava')
-const { AbortController } = require('native-abort-controller')
 const pDefer = require('p-defer')
 const anySignal = require('./')
+const { AbortController } = globalThis
 
 test('should abort from any signal', async t => {
   const controllers = [...new Array(5)].map(() => new AbortController())

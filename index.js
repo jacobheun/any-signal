@@ -1,4 +1,4 @@
-const { AbortController } = require('native-abort-controller')
+const { AbortController } = globalThis
 
 /**
  * Takes an array of AbortSignals and returns a single signal.

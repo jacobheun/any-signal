@@ -1,5 +1,3 @@
-const { AbortController } = globalThis
-
 /**
  * Takes an array of AbortSignals and returns a single signal.
  * If any signals are aborted, the returned signal will be aborted.

@@ -5,7 +5,7 @@
  * @returns {AbortSignal}
  */
 function anySignal (signals) {
-  const controller = new AbortController()
+  const controller = new globalThis.AbortController()
 
   function onAbort () {
     controller.abort()

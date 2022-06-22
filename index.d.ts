@@ -1,4 +1,4 @@
-declare function anySignal(signals: AbortSignal[]): AbortSignal;
+declare function anySignal(signals: (AbortSignal | null | undefined)[]): AbortSignal;
 
 export {anySignal};
 

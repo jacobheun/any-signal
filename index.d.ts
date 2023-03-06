@@ -1,5 +1,9 @@
-declare function anySignal(signals: AbortSignal[]): AbortSignal;
+interface CompositeSignal extends AbortSignal {
+    clear(): void
+}
 
-export {anySignal};
+declare function anySignal(signals: Array<AbortSignal | undefined | null>): AbortSignal;
+
+export {anySignal, type CompositeSignal};
 
 export default anySignal;

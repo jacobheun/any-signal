@@ -18,7 +18,7 @@
   "author": "Jacob Heun",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^3.11.1",
+    "ava": "^5.2.0",
     "nyc": "^15.1.0",
     "p-defer": "^3.0.0",
     "standard": "^16.0.3"

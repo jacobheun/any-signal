@@ -1,6 +1,6 @@
 # any-signal
 
-[![Build Status](https://travis-ci.org/jacobheun/any-signal.svg?branch=master)](https://travis-ci.org/jacobheun/any-signal) [![dependencies Status](https://david-dm.org/jacobheun/any-signal/status.svg)](https://david-dm.org/jacobheun/any-signal) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Build Status](https://github.com/jacobheun/any-signal/actions/workflows/node.js.yml/badge.svg?branch=master)](https://travis-ci.org/jacobheun/any-signal) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 > Combines an array of AbortSignals into a single signal that is aborted when any signal is.
 

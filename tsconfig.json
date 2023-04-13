@@ -1,5 +1,10 @@
 {
+  "extends": "aegir/src/config/tsconfig.aegir.json",
   "compilerOptions": {
-    "target": "es2018"
-  }
+    "outDir": "dist"
+  },
+  "include": [
+    "src",
+    "test"
+  ]
 }

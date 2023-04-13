@@ -50,8 +50,8 @@ export function anySignal (signals: Array<AbortSignal | undefined | null>): Clea
       const value = target[p]
 
       if (typeof value === 'function') {
-        return function (...args: any[]) {
-          value.apply(target, args)
+        return function (...args: any[]): any {
+          return value.apply(target, args)
         }
       }
 

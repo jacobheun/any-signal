@@ -1,5 +1,6 @@
 import { expect } from 'aegir/chai'
 import pDefer from 'p-defer'
+import { isNode, isElectronMain } from 'wherearewe'
 import { anySignal } from '../src/index.js'
 const { AbortController } = globalThis
 
@@ -140,5 +141,19 @@ describe('any-signal', () => {
 
     // No handlers means there are no events propagated to the composite `signal`
     expect(signal).to.have.property('aborted', false)
+  })
+
+  it('should be able to increase max number of listeners on returned signal', async () => {
+    if (!isNode && !isElectronMain) {
+      return
+    }
+
+    // @ts-expect-error setMaxListeners is missing from @types/node
+    const { setMaxListeners } = await import('node:events')
+    const controllers = [...new Array(5)].map(() => new AbortController())
+    const signals = controllers.map(c => c.signal)
+    const signal = anySignal(signals)
+
+    setMaxListeners(Infinity, signal)
   })
 })

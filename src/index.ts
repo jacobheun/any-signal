@@ -1,37 +1,41 @@
 
 export interface ClearableSignal extends AbortSignal {
-  clear(): void
+  clear: () => void
 }
 
 /**
  * Takes an array of AbortSignals and returns a single signal.
  * If any signals are aborted, the returned signal will be aborted.
  */
-export function anySignal (signals:  Array<AbortSignal | undefined | null>): ClearableSignal {
+export function anySignal (signals: Array<AbortSignal | undefined | null>): ClearableSignal {
   const controller = new globalThis.AbortController()
 
-  function onAbort () {
+  function onAbort (): void {
     controller.abort()
 
     for (const signal of signals) {
-      if (!signal || !signal.removeEventListener) continue
-      signal.removeEventListener('abort', onAbort)
+      if (signal?.removeEventListener != null) {
+        signal.removeEventListener('abort', onAbort)
+      }
     }
   }
 
   for (const signal of signals) {
-    if (!signal || !signal.addEventListener) continue
-    if (signal.aborted) {
+    if (signal?.aborted === true) {
       onAbort()
       break
     }
-    signal.addEventListener('abort', onAbort)
+
+    if (signal?.addEventListener != null) {
+      signal.addEventListener('abort', onAbort)
+    }
   }
 
-  function clear () {
+  function clear (): void {
     for (const signal of signals) {
-      if (!signal || !signal.removeEventListener) continue
-      signal.removeEventListener('abort', onAbort)
+      if (signal?.removeEventListener != null) {
+        signal.removeEventListener('abort', onAbort)
+      }
     }
   }
 

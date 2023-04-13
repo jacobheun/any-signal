@@ -2,7 +2,7 @@
  * Takes an array of AbortSignals and returns a single signal.
  * If any signals are aborted, the returned signal will be aborted.
  * @param {Array<AbortSignal>} signals
- * @returns {CompositeSignal}
+ * @returns {ClearableSignal}
  */
 function anySignal (signals) {
   const controller = new globalThis.AbortController()

@@ -1,9 +1,9 @@
-interface CompositeSignal extends AbortSignal {
+interface ClearableSignal extends AbortSignal {
     clear(): void
 }
 
-declare function anySignal(signals: Array<AbortSignal | undefined | null>): AbortSignal;
+declare function anySignal(signals: Array<AbortSignal | undefined | null>): ClearableSignal;
 
-export {anySignal, type CompositeSignal};
+export {anySignal, type ClearableSignal};
 
 export default anySignal;

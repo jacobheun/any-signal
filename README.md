@@ -46,7 +46,7 @@ combinedSignal.clear()
 
 | Type | Description |
 |------|-------------|
-| `ClearableSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) | A Signal that will be aborted as soon as any one of its parent signals are aborted. Extends AbortSignal with the `clear` function for cleanup |
+| [`ClearableSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) | A Signal that will be aborted as soon as any one of its parent signals are aborted. Extends AbortSignal with the `clear` function for cleanup |
 
 The returned [`ClearableSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) will only be aborted once, and as soon as one of its parent signals is aborted.
 

@@ -37,7 +37,13 @@ function anySignal (signals) {
       if (p === 'clear') {
         return clear
       }
-      return target[p]
+      const value = target[p]
+      if (typeof value === 'function') {
+        return function (...args) {
+          return value.apply(target, args)
+        }
+      }
+      return value
     }
   })
 }

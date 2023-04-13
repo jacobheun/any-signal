@@ -27,6 +27,9 @@ const timeoutId = setTimeout(() => timeoutController.abort(), 1000)
 // The user or the timeout can now abort the action
 await performSomeAction({ signal: combinedSignal })
 clearTimeout(timeoutId)
+
+// Clear will clean up internal event handlers
+combinedSignal.clear()
 ```
 
 ## API
@@ -43,9 +46,12 @@ clearTimeout(timeoutId)
 
 | Type | Description |
 |------|-------------|
-| [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) | A Signal that will be aborted as soon as any one of its parent signals are aborted. |
+| `ClearableSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) | A Signal that will be aborted as soon as any one of its parent signals are aborted. Extends AbortSignal with the `clear` function for cleanup |
 
-The returned [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) will only be aborted once, and as soon as one of its parent signals is aborted.
+The returned [`ClearableSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) will only be aborted once, and as soon as one of its parent signals is aborted.
+
+### `ClearableSignal.clear()`
+Removes all internal event handlers. This **must** be called after abort has been called, or the signals have successfully executed, otherwise there is a risk of leaking event handlers.
 
 ## Acknowledgements
 

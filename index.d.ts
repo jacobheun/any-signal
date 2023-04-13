@@ -1,5 +1,9 @@
-declare function anySignal(signals: AbortSignal[]): AbortSignal;
+interface ClearableSignal extends AbortSignal {
+    clear(): void
+}
 
-export {anySignal};
+declare function anySignal(signals: Array<AbortSignal | undefined | null>): ClearableSignal;
+
+export {anySignal, type ClearableSignal};
 
 export default anySignal;

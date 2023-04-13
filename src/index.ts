@@ -1,10 +1,13 @@
+
+export interface ClearableSignal extends AbortSignal {
+  clear(): void
+}
+
 /**
  * Takes an array of AbortSignals and returns a single signal.
  * If any signals are aborted, the returned signal will be aborted.
- * @param {Array<AbortSignal>} signals
- * @returns {ClearableSignal}
  */
-function anySignal (signals) {
+export function anySignal (signals:  Array<AbortSignal | undefined | null>): ClearableSignal {
   const controller = new globalThis.AbortController()
 
   function onAbort () {
@@ -32,15 +35,23 @@ function anySignal (signals) {
     }
   }
 
+  // @ts-expect-error Proxy is not a ClearableSignal
   return new Proxy(controller.signal, {
     get (target, p) {
       if (p === 'clear') {
         return clear
       }
-      return target[p]
+
+      // @ts-expect-error cannot use string to index target type
+      const value = target[p]
+
+      if (typeof value === 'function') {
+        return function (...args: any[]) {
+          value.apply(target, args)
+        }
+      }
+
+      return value
     }
   })
 }
-
-module.exports = anySignal
-module.exports.anySignal = anySignal

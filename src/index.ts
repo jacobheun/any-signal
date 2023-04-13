@@ -39,23 +39,8 @@ export function anySignal (signals: Array<AbortSignal | undefined | null>): Clea
     }
   }
 
-  // @ts-expect-error Proxy is not a ClearableSignal
-  return new Proxy(controller.signal, {
-    get (target, p) {
-      if (p === 'clear') {
-        return clear
-      }
+  const signal = controller.signal as ClearableSignal
+  signal.clear = clear
 
-      // @ts-expect-error cannot use string to index target type
-      const value = target[p]
-
-      if (typeof value === 'function') {
-        return function (...args: any[]): any {
-          return value.apply(target, args)
-        }
-      }
-
-      return value
-    }
-  })
+  return signal
 }

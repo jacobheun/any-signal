@@ -172,6 +172,7 @@ describe('any-signal', () => {
 
     c1.abort(new TimeoutError('timeout'))
     c2.abort(new CancelError('cancel'))
+    expect(signal.reason instanceof CancelError).to.equal(false)
     expect(signal.reason instanceof TimeoutError).to.equal(true)
   })
 })

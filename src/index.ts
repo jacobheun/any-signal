@@ -9,34 +9,37 @@ export interface ClearableSignal extends AbortSignal {
  */
 export function anySignal (signals: Array<AbortSignal | undefined | null>): ClearableSignal {
   const controller = new globalThis.AbortController()
+  const unsubscribe: Function[] = []
 
-  function onAbort (): void {
-    controller.abort()
+  function onAbort (reason: Error): void {
+    controller.abort(reason)
 
-    for (const signal of signals) {
-      if (signal?.removeEventListener != null) {
-        signal.removeEventListener('abort', onAbort)
-      }
-    }
+    clear()
   }
 
   for (const signal of signals) {
     if (signal?.aborted === true) {
-      onAbort()
+      onAbort(signal.reason)
       break
     }
 
     if (signal?.addEventListener != null) {
-      signal.addEventListener('abort', onAbort)
+      const cb = (): void => {
+        onAbort(signal.reason)
+      }
+      unsubscribe.push(() => {
+        if (signal?.removeEventListener != null) {
+          signal.removeEventListener('abort', cb)
+        }
+      })
+      signal.addEventListener('abort', cb)
     }
   }
 
   function clear (): void {
-    for (const signal of signals) {
-      if (signal?.removeEventListener != null) {
-        signal.removeEventListener('abort', onAbort)
-      }
-    }
+    unsubscribe.forEach(cb => {
+      cb()
+    })
   }
 
   const signal = controller.signal as ClearableSignal

@@ -1,3 +1,9 @@
+## [4.1.2](https://github.com/jacobheun/any-signal/compare/v4.1.1...v4.1.2) (2025-12-15)
+
+### Dependencies
+
+* update aegir ([#42](https://github.com/jacobheun/any-signal/issues/42)) ([4856c9c](https://github.com/jacobheun/any-signal/commit/4856c9c0d0b5c4a831a3cab14a864b73a58853bb))
+
 ## [4.1.1](https://github.com/jacobheun/any-signal/compare/v4.1.0...v4.1.1) (2023-04-13)
 
 

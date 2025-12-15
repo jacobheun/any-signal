@@ -1,98 +1,88 @@
-# any-signal <!-- omit in toc -->
+# any-signal
 
 [![codecov](https://img.shields.io/codecov/c/github/jacobheun/any-signal.svg?style=flat-square)](https://codecov.io/gh/jacobheun/any-signal)
 [![CI](https://img.shields.io/github/actions/workflow/status/jacobheun/any-signal/js-test-and-release.yml?branch=master\&style=flat-square)](https://github.com/jacobheun/any-signal/actions/workflows/js-test-and-release.yml?query=branch%3Amaster)
 
 > Combines an array of AbortSignals into a single signal that is aborted when any signal is
 
-## Table of contents <!-- omit in toc -->
+# About
 
-- [Install](#install)
-  - [Browser `<script>` tag](#browser-script-tag)
-- [Usage](#usage)
-- [API](#api)
-  - [`anySignal(signals)`](#anysignalsignals)
-    - [Parameters](#parameters)
-    - [Returns](#returns)
-  - [`ClearableSignal.clear()`](#clearablesignalclear)
-- [Acknowledgements](#acknowledgements)
-- [API Docs](#api-docs)
-- [License](#license)
-- [Contribution](#contribution)
+<!--
 
-## Install
+!IMPORTANT!
 
-```console
-$ npm i any-signal
-```
+Everything in this README between "# About" and "# Install" is automatically
+generated and will be overwritten the next time the doc generator is run.
 
-### Browser `<script>` tag
+To make changes to this section, please update the @packageDocumentation section
+of src/index.js or src/index.ts
 
-Loading this module through a script tag will make it's exports available as `AnySignal` in the global namespace.
+To experiment with formatting, please run "npm run docs" from the root of this
+repo and examine the changes made.
 
-```html
-<script src="https://unpkg.com/any-signal/dist/index.min.js"></script>
-```
+-->
 
-## Usage
+Similar to [AbortSignal.any](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/any_static)
+except the returned promise has a `.clear` method that removes all event
+listeners added to passed signals preventing memory leaks.
+
+At the time of writing at least, `AbortSignal.any` leaks memory in Node.js
+and Deno environments:
+
+- <https://github.com/nodejs/node/issues/54614>
+- <https://github.com/denoland/deno/issues/24842>
+
+## Example
 
 ```js
 import { anySignal } from 'any-signal'
 
 const userController = new AbortController()
-const timeoutController = new AbortController()
-
-const combinedSignal = anySignal([userController.signal, timeoutController.signal])
-combinedSignal.addEventListener('abort', () => console.log('Abort!'))
 
 // Abort after 1 second
-const timeoutId = setTimeout(() => timeoutController.abort(), 1000)
+const timeoutSignal = AbortSignal.timeout(1000)
 
-// The user or the timeout can now abort the action
-await performSomeAction({ signal: combinedSignal })
-clearTimeout(timeoutId)
+const combinedSignal = anySignal([userController.signal, timeoutSignal])
+combinedSignal.addEventListener('abort', () => console.log('Abort!'))
 
-// Clear will clean up internal event handlers
-combinedSignal.clear()
+try {
+  // The user or the timeout can now abort the action
+  await performSomeAction({ signal: combinedSignal })
+} finally {
+  // Clear will clean up internal event handlers
+  combinedSignal.clear()
+}
 ```
 
-## API
+# Install
 
-### `anySignal(signals)`
+```console
+$ npm i any-signal
+```
 
-#### Parameters
+## Browser `<script>` tag
 
-| Name    | Type                                                                                 | Description                                                         |
-| ------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| signals | Array<[`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)> | The Signals that will be observed and mapped to the returned Signal |
+Loading this module through a script tag will make its exports available as `AnySignal` in the global namespace.
 
-#### Returns
-
-| Type                                                                              | Description                                                                                                                                   |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`ClearableSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) | A Signal that will be aborted as soon as any one of its parent signals are aborted. Extends AbortSignal with the `clear` function for cleanup |
-
-The returned [`ClearableSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) will only be aborted once, and as soon as one of its parent signals is aborted.
-
-### `ClearableSignal.clear()`
-
-Removes all internal event handlers. This **must** be called after abort has been called, or the signals have successfully executed, otherwise there is a risk of leaking event handlers.
+```html
+<script src="https://unpkg.com/any-signal/dist/index.min.js"></script>
+```
 
 ## Acknowledgements
 
 The anySignal function is taken from a [comment by jakearchibald](https://github.com/whatwg/fetch/issues/905#issuecomment-491970649)
 
-## API Docs
+# API Docs
 
 - <https://jacobheun.github.io/any-signal>
 
-## License
+# License
 
 Licensed under either of
 
-- Apache 2.0, ([LICENSE-APACHE](LICENSE-APACHE) / <http://www.apache.org/licenses/LICENSE-2.0>)
-- MIT ([LICENSE-MIT](LICENSE-MIT) / <http://opensource.org/licenses/MIT>)
+- Apache 2.0, ([LICENSE-APACHE](https://github.com/jacobheun/any-signal/LICENSE-APACHE) / <http://www.apache.org/licenses/LICENSE-2.0>)
+- MIT ([LICENSE-MIT](https://github.com/jacobheun/any-signal/LICENSE-MIT) / <http://opensource.org/licenses/MIT>)
 
-## Contribution
+# Contribution
 
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any additional terms or conditions.

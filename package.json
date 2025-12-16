@@ -1,6 +1,6 @@
 {
   "name": "any-signal",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Combines an array of AbortSignals into a single signal that is aborted when any signal is",
   "license": "Apache-2.0 OR MIT",
   "homepage": "https://github.com/jacobheun/any-signal#readme",
@@ -11,9 +11,9 @@
   "bugs": {
     "url": "https://github.com/jacobheun/any-signal/issues"
   },
-  "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.0.0"
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "type": "module",
   "types": "./dist/src/index.d.ts",
@@ -27,12 +27,6 @@
     ".": {
       "types": "./dist/src/index.d.ts",
       "import": "./dist/src/index.js"
-    }
-  },
-  "eslintConfig": {
-    "extends": "ipfs",
-    "parserOptions": {
-      "sourceType": "module"
     }
   },
   "release": {
@@ -117,7 +111,15 @@
       "@semantic-release/changelog",
       "@semantic-release/npm",
       "@semantic-release/github",
-      "@semantic-release/git"
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ]
+        }
+      ]
     ]
   },
   "scripts": {
@@ -136,11 +138,15 @@
     "docs": "aegir docs"
   },
   "devDependencies": {
-    "aegir": "^38.1.8",
+    "aegir": "^47.0.25",
     "p-defer": "^4.0.0",
     "wherearewe": "^2.0.1"
   },
   "browser": {
     "node:events": false
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
   }
 }

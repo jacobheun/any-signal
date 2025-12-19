@@ -46,7 +46,12 @@ export function anySignal (signals: Array<AbortSignal | undefined | null>): Clea
   const controller = new globalThis.AbortController()
 
   function onAbort (): void {
-    controller.abort()
+    const reason = signals
+      .filter(s => s?.aborted === true)
+      .map(s => s?.reason)
+      .pop()
+
+    controller.abort(reason)
 
     for (const signal of signals) {
       if (signal?.removeEventListener != null) {

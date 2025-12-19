@@ -156,4 +156,21 @@ describe('any-signal', () => {
 
     setMaxListeners(Infinity, signal)
   })
+
+  it('should report the reason for aborting', async () => {
+    class TimeoutError extends Error {}
+    class CancelError extends Error {}
+
+    const c1 = new AbortController()
+    const c2 = new AbortController()
+
+    const signal = anySignal([c1.signal, c2.signal])
+
+    c1.abort(new TimeoutError('timeout'))
+    c2.abort(new CancelError('cancel'))
+
+    expect(signal).to.have.property('aborted', true)
+    expect(signal).to.have.property('reason').that.is.not.an.instanceOf(CancelError)
+    expect(signal).to.have.property('reason').that.is.an.instanceOf(TimeoutError)
+  })
 })

@@ -1,3 +1,9 @@
+## [4.2.0](https://github.com/jacobheun/any-signal/compare/v4.1.2...v4.2.0) (2025-12-19)
+
+### Features
+
+* report abort reason ([#41](https://github.com/jacobheun/any-signal/issues/41)) ([8b1e1dc](https://github.com/jacobheun/any-signal/commit/8b1e1dcf2bdbb34bacf4774295fa963060680dcd))
+
 ## [4.1.2](https://github.com/jacobheun/any-signal/compare/v4.1.1...v4.1.2) (2025-12-15)
 
 ### Dependencies

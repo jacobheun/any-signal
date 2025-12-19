@@ -1,6 +1,6 @@
 {
   "name": "any-signal",
-  "version": "4.1.2",
+  "version": "4.2.0",
   "description": "Combines an array of AbortSignals into a single signal that is aborted when any signal is",
   "license": "Apache-2.0 OR MIT",
   "homepage": "https://github.com/jacobheun/any-signal#readme",
